@@ -36,6 +36,8 @@ main(). then(() => {
 }
 );
 
+console.log(dbUrl);
+
 async function main() {
     await mongoose.connect(dbUrl, {
         useNewUrlParser: true,
