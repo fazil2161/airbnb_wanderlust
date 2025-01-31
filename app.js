@@ -1,6 +1,6 @@
-// if(process.env.NODE_ENV != "production"){
-//     require('dotenv').config()
-// }
+if(process.env.NODE_ENV != "production"){
+    require('dotenv').config()
+}
 
 
 
@@ -37,8 +37,12 @@ main(). then(() => {
 );
 
 async function main() {
-    mongoose.connect(dbUrl);
+    await mongoose.connect(dbUrl, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    });
 }
+
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
