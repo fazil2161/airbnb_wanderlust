@@ -9,11 +9,8 @@ const listingSchema = new Schema ({
     },
     Description: String,
     image : {
+        url: String,
         filename: String,
-        url: {
-            type: String,
-            default: "https://unsplash.com/photos/a-close-up-of-a-green-snake-curled-up-gUeEQ-eOhzs",
-        }
     },
     price:Number,
     location: String,
@@ -23,8 +20,23 @@ const listingSchema = new Schema ({
             type: Schema.Types.ObjectId,
             ref: "Review"
         },
+    
     ],
-
+    owner:{ 
+        type: Schema.Types.ObjectId,
+        ref: "User",
+     },
+     geometry: {
+        type: {
+          type: String, // Don't do `{ location: { type: String } }`
+          enum: ['Point'], // 'location.type' must be 'Point'
+          required: true
+        },
+        coordinates: {
+          type: [Number],
+          required: true 
+        }
+     },
 
 });
 

@@ -1,7 +1,7 @@
 <% layout("/layout/boilerplate") %>
 <body>
     
-    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT">
+    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" enctype="multipart/form-data">
         <div class="row mt-3">
             <div class="col-8 offset-2">
                 <h3>Edit your listing</h3>
@@ -12,11 +12,19 @@
         </div>
         <div clas="mb-3">
         <label for="description" class="form-label">Description</label>
-        <textarea name="listing[Description]" type="text" class="form-control" required> <%=listing.description%>></textarea>
+        <textarea name="listing[Description]" type="text" class="form-control" required>
+             <%=listing.description%>></textarea>
         </div>
+
         <div clas="mb-3">
-        <label for="image" class="form-label">Upload image</label>
-        <input name="listing[image]" value="<%=listing.image%>"  type="text"class="form-control" />
+            Original listing image
+            <img src="<%= originalImageUrl %>">
+        </div> 
+        
+       
+        <div clas="mb-3">
+        <label for="image" class="form-label">Upload new image</label>
+        <input name="listing[image]"  type="file" class="form-control" />
         </div>
 
         <div class="row">
