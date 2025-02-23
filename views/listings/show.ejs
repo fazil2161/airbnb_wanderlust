@@ -24,7 +24,7 @@
         <% } else { %>
             Price not available
         <% } %> 
-        /night %> </p> 
+        /night </p> 
         <p class="card-text"><%= listing.location %> </p> 
         <p class="card-text"><%= listing.country %></p> 
 
@@ -39,7 +39,7 @@
 
 </div>
 
-<% if (currUser && listing.owner._id.equals(currUser._id)) {%> 
+<% if (currUser && listing.owner._id.equals(currUser._id)) {%>
 <div class="btns">
     <a href="/listings/<%= listing._id %>/edit"class="btn btn-dark col-1 offset-3 add-btn">Edit</a>
 

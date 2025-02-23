@@ -5,7 +5,7 @@ const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
 module.exports.index = async(req,res) => {
     const allListings = await Listing.find({});
-    res.render("listings/index.ejs",{allListings});
+    return res.render("listings/index.ejs",{allListings});
 }
 
 module.exports.renderNewForm = (req,res) => {
@@ -81,10 +81,21 @@ module.exports.updateListing = async (req,res) =>{
 }
 
 module.exports.destroyListing = async (req,res) => {
+    try {
     let {id} = req.params;
+    const listing = await Listing.findById(id);
+
+    if(!listing) {
+        req.flash("error", "user doesn't exist in the listing");
+        res.redirect("/listings");
+    }
     
     const deletedListing = await Listing.findByIdAndDelete(id);
     req.flash("success", "Listing Deleted");
     console.log(deletedListing);
     res.redirect("/listings");
+} catch(error) {
+    console.error("Error details for deleting listing", error);
+    return res.redirect("/listings");
+}
 }

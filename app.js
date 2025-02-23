@@ -25,8 +25,8 @@ const listingRouter= require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
-
-const dbUrl = process.env.ATLASDB_URL;
+dbUrl= "mongodb://127.0.0.1:27017/wanderlust"
+// const dbUrl = process.env.ATLASDB_URL;
 
 main(). then(() => {
     console.log("connected to DB");
@@ -40,8 +40,8 @@ console.log(dbUrl);
 
 async function main() {
     await mongoose.connect(dbUrl, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
+        // useNewUrlParser: true,
+        // useUnifiedTopology: true
     });
 }
 
@@ -111,12 +111,15 @@ app.use((req,res,next) =>{
 //     res.send(registeredUser);
 
 // })
-
+app.get("/", (req,res) => {
+    res.redirect("/listings");
+})
 
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
+
 
 
 
@@ -126,8 +129,10 @@ app.all("*", (req,res,next)=> {
 
 app.use ((err, req, res, next) => {
     let {statusCode=500, message="Something went wrong"} = err;
+    console.error("Error details", err);
     res.status (statusCode).render("error.ejs", {message});
-    // res.status(statusCode).send(message);
+    
+    res.status(statusCode).send(message);
 });
 
 app.listen (8080, () => {
