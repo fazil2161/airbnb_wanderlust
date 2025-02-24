@@ -76,6 +76,11 @@ body {
     text-decoration: none;
 }
 
+.card {
+    border:none !important;
+    
+}
+
 .card-img-overlay {
     opacity: 0;
 }
